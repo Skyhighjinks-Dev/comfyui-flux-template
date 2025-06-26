@@ -1,9 +1,7 @@
-# .circleci/config.yml  (CircleCI 2.1)
 version: 2.1
 
 executors:
   docker-dind:
-    # machine executor gives you full Docker daemon + BuildKit
     machine:
       image: ubuntu-2404:current
       docker_layer_caching: true
@@ -17,7 +15,7 @@ jobs:
     steps:
       - checkout
 
-      # Pull last build’s cache (ignore if it does not exist)
+      # Pull last build’s cache image (ignore if it does not exist)
       - run:
           name: Pre-pull cache image
           command: |
@@ -37,14 +35,11 @@ jobs:
             docker build \
               --progress=plain \
               --build-arg BUILDKIT_INLINE_CACHE=1 \
-              --cache-from "${IMG}:buildcache" \
+              --cache-from "type=registry,ref=${IMG}:buildcache" \
+              --cache-to "type=registry,ref=${IMG}:buildcache,mode=max" \
               -t "${IMG}:${TAG}" .
 
             docker push "${IMG}:${TAG}"
-
-            # refresh the cache tag for next build
-            docker tag "${IMG}:${TAG}" "${IMG}:buildcache"
-            docker push "${IMG}:buildcache"
 
 workflows:
   version: 2
