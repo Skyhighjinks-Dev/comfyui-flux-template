@@ -18,7 +18,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 28,
+      "order": 24,
       "mode": 0,
       "inputs": [
         {
@@ -60,7 +60,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 33,
+      "order": 30,
       "mode": 0,
       "inputs": [
         {
@@ -180,7 +180,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 29,
+      "order": 25,
       "mode": 0,
       "inputs": [
         {
@@ -257,7 +257,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 36,
+      "order": 34,
       "mode": 0,
       "inputs": [
         {
@@ -411,7 +411,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 26,
+      "order": 28,
       "mode": 0,
       "inputs": [
         {
@@ -439,84 +439,6 @@
       "bgcolor": "#593930"
     },
     {
-      "id": 97,
-      "type": "GetNode",
-      "pos": [
-        -4089.50146484375,
-        641.372314453125
-      ],
-      "size": [
-        210,
-        60
-      ],
-      "flags": {
-        "collapsed": true
-      },
-      "order": 4,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            177,
-            178
-          ]
-        }
-      ],
-      "title": "Get_model_clip",
-      "properties": {
-        "widget_ue_connectable": {}
-      },
-      "widgets_values": [
-        "model_clip"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
-    },
-    {
-      "id": 86,
-      "type": "SetNode",
-      "pos": [
-        -3862.111572265625,
-        645.427001953125
-      ],
-      "size": [
-        210,
-        60
-      ],
-      "flags": {
-        "collapsed": true
-      },
-      "order": 25,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "link": 168
-        }
-      ],
-      "outputs": [
-        {
-          "name": "*",
-          "type": "*",
-          "links": null
-        }
-      ],
-      "title": "Set_neg_cond",
-      "properties": {
-        "previousName": "neg_cond",
-        "widget_ue_connectable": {}
-      },
-      "widgets_values": [
-        "neg_cond"
-      ],
-      "color": "#332922",
-      "bgcolor": "#593930"
-    },
-    {
       "id": 124,
       "type": "Lora Loader Stack (rgthree)",
       "pos": [
@@ -528,7 +450,7 @@
         246
       ],
       "flags": {},
-      "order": 21,
+      "order": 19,
       "mode": 0,
       "inputs": [
         {
@@ -590,7 +512,7 @@
         78
       ],
       "flags": {},
-      "order": 5,
+      "order": 4,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -636,7 +558,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 6,
+      "order": 5,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -673,7 +595,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 7,
+      "order": 6,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -709,7 +631,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 8,
+      "order": 7,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -790,7 +712,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 35,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
@@ -818,48 +740,6 @@
       "widgets_values": []
     },
     {
-      "id": 10,
-      "type": "CLIPTextEncode",
-      "pos": [
-        -4092.717529296875,
-        686.8466796875
-      ],
-      "size": [
-        380,
-        110
-      ],
-      "flags": {},
-      "order": 18,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 177
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            168
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.3.39",
-        "Node name for S&R": "CLIPTextEncode",
-        "widget_ue_connectable": {}
-      },
-      "widgets_values": [
-        "bas quality, pixelated, low quality, saturated, animated, cartoon, unrealistic, text, watermark, ugly, fat, muscular, ribcage, open mouth, teeth, nsfw, nipples, naked, nude"
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
       "id": 122,
       "type": "DualCLIPLoader",
       "pos": [
@@ -871,7 +751,7 @@
         130
       ],
       "flags": {},
-      "order": 9,
+      "order": 8,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -910,7 +790,7 @@
         82
       ],
       "flags": {},
-      "order": 10,
+      "order": 9,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -936,47 +816,6 @@
       "bgcolor": "#535"
     },
     {
-      "id": 158,
-      "type": "LoadImage",
-      "pos": [
-        -4461.97509765625,
-        369.0314636230469
-      ],
-      "size": [
-        274.080078125,
-        314
-      ],
-      "flags": {},
-      "order": 11,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            265
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null
-        }
-      ],
-      "title": "Image 1",
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.3.42",
-        "Node name for S&R": "LoadImage",
-        "widget_ue_connectable": {}
-      },
-      "widgets_values": [
-        "ComfyUI_temp_kpkzt_00027_.png",
-        "image"
-      ]
-    },
-    {
       "id": 172,
       "type": "GetNode",
       "pos": [
@@ -990,7 +829,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 12,
+      "order": 10,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1026,7 +865,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 30,
+      "order": 27,
       "mode": 0,
       "inputs": [
         {
@@ -1072,7 +911,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 34,
+      "order": 32,
       "mode": 0,
       "inputs": [
         {
@@ -1113,7 +952,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 13,
+      "order": 11,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1150,7 +989,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 20,
+      "order": 18,
       "mode": 0,
       "inputs": [
         {
@@ -1192,51 +1031,6 @@
       ]
     },
     {
-      "id": 168,
-      "type": "BasicGuider",
-      "pos": [
-        -3507.3447265625,
-        505.4937744140625
-      ],
-      "size": [
-        155.71875,
-        46
-      ],
-      "flags": {
-        "collapsed": true
-      },
-      "order": 24,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 274
-        },
-        {
-          "name": "conditioning",
-          "type": "CONDITIONING",
-          "link": 276
-        }
-      ],
-      "outputs": [
-        {
-          "name": "GUIDER",
-          "type": "GUIDER",
-          "links": [
-            273
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.3.42",
-        "Node name for S&R": "BasicGuider",
-        "widget_ue_connectable": {}
-      },
-      "widgets_values": []
-    },
-    {
       "id": 171,
       "type": "SetNode",
       "pos": [
@@ -1250,7 +1044,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 32,
+      "order": 33,
       "mode": 0,
       "inputs": [
         {
@@ -1291,7 +1085,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 37,
+      "order": 35,
       "mode": 0,
       "inputs": [
         {
@@ -1330,7 +1124,7 @@
         731.4990844726562
       ],
       "flags": {},
-      "order": 31,
+      "order": 26,
       "mode": 0,
       "inputs": [
         {
@@ -1395,7 +1189,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 19,
+      "order": 23,
       "mode": 0,
       "inputs": [
         {
@@ -1468,7 +1262,7 @@
         58
       ],
       "flags": {},
-      "order": 27,
+      "order": 29,
       "mode": 0,
       "inputs": [
         {
@@ -1512,7 +1306,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 14,
+      "order": 12,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1548,7 +1342,7 @@
         106
       ],
       "flags": {},
-      "order": 23,
+      "order": 20,
       "mode": 0,
       "inputs": [
         {
@@ -1579,6 +1373,128 @@
       ],
       "color": "#232",
       "bgcolor": "#353"
+    },
+    {
+      "id": 158,
+      "type": "LoadImage",
+      "pos": [
+        -4461.97509765625,
+        369.0314636230469
+      ],
+      "size": [
+        274.080078125,
+        314
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            265
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "title": "Image 1",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.42",
+        "Node name for S&R": "LoadImage",
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "ComfyUI_temp_kpkzt_00027_.png",
+        "image"
+      ]
+    },
+    {
+      "id": 168,
+      "type": "BasicGuider",
+      "pos": [
+        -3507.3447265625,
+        505.4937744140625
+      ],
+      "size": [
+        155.71875,
+        46
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 274
+        },
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 276
+        }
+      ],
+      "outputs": [
+        {
+          "name": "GUIDER",
+          "type": "GUIDER",
+          "links": [
+            273
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.42",
+        "Node name for S&R": "BasicGuider",
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 97,
+      "type": "GetNode",
+      "pos": [
+        -4024.90283203125,
+        649.5238647460938
+      ],
+      "size": [
+        210,
+        60
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            178
+          ]
+        }
+      ],
+      "title": "Get_model_clip",
+      "properties": {
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "model_clip"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
     }
   ],
   "links": [
@@ -1597,22 +1513,6 @@
       87,
       0,
       "*"
-    ],
-    [
-      168,
-      10,
-      0,
-      86,
-      0,
-      "*"
-    ],
-    [
-      177,
-      97,
-      0,
-      10,
-      0,
-      "CLIP"
     ],
     [
       178,
@@ -1905,10 +1805,10 @@
   "extra": {
     "ue_links": [],
     "ds": {
-      "scale": 0.758981054088767,
+      "scale": 0.9646149645000006,
       "offset": [
-        5055.688195274104,
-        -138.6919394969595
+        5922.427416388168,
+        -219.9171409477507
       ]
     },
     "links_added_by_ue": [],
