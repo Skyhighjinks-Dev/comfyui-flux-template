@@ -139,6 +139,9 @@ if [ "$download_flux_kontext" == "true" ]; then
   download_model "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors" "$TEXT_ENCODERS_DIR/t5xxl_fp16.safetensors"
 fi
 
+if [ "$download_flux_krea" == "true" ]; then
+  download_model "https://huggingface.co/black-forest-labs/FLUX.1-Krea-dev/resolve/main/flux1-krea-dev.safetensors" "$DIFFUSION_MODELS_DIR/flux1-krea-dev.safetensors"
+fi
 
 # Download additional models
 echo "📥 Starting additional model downloads..."
