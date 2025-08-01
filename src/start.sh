@@ -102,16 +102,16 @@ download_model() {
 
     echo "📥 Downloading $destination_file to $destination_dir..."
 
-    if [ "${download_flux_kontext:-false}" = true ]; then
-        # Download with Hugging Face token header
-        if [ -z "$HUGGINGFACE_TOKEN" ]; then
-            echo "❌ HUGGINGFACE_TOKEN is not set. Cannot download $destination_file."
-            return 1
-        fi
+    if [ "${download_flux_kontext:-false}" = true ] || [ "${download_flux_krea:-false}" = true ]; then
+    # Download with Hugging Face token header
+    if [ -z "$HUGGINGFACE_TOKEN" ]; then
+        echo "❌ HUGGINGFACE_TOKEN is not set. Cannot download $destination_file."
+        return 1
+    fi
 
-        aria2c -x 16 -s 16 -k 1M --continue=true \
-            --header="Authorization: Bearer $HUGGINGFACE_TOKEN" \
-            -d "$destination_dir" -o "$destination_file" "$url" &
+    aria2c -x 16 -s 16 -k 1M --continue=true \
+        --header="Authorization: Bearer $HUGGINGFACE_TOKEN" \
+        -d "$destination_dir" -o "$destination_file" "$url" &
     else
         # Normal download without auth header
         aria2c -x 16 -s 16 -k 1M --continue=true -d "$destination_dir" -o "$destination_file" "$url" &
