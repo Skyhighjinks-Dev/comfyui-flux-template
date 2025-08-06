@@ -57,6 +57,7 @@ VAE_DIR="$NETWORK_VOLUME/ComfyUI/models/vae"
 INSIGHTFACE_DIR="$NETWORK_VOLUME/ComfyUI/models/insightface/models"
 PULID_DIR="$NETWORK_VOLUME/ComfyUI/models/pulid"
 CONTROLNET_DIR="$NETWORK_VOLUME/ComfyUI/models/controlnet"
+CHECKPOINT_DIR="$NETWORK_VOLUME/ComfyUI/models/checkpoints"
 
 if [ ! -d "$COMFYUI_DIR" ]; then
     mv /ComfyUI "$COMFYUI_DIR"
@@ -121,27 +122,13 @@ download_model() {
 }
 
 
-download_model "https://huggingface.co/lllyasviel/flux1_dev/resolve/main/flux1-dev-fp8.safetensors" "$DIFFUSION_MODELS_DIR/flux1-dev-fp8.safetensors"
 download_model "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors" "$TEXT_ENCODERS_DIR/clip_l.safetensors"
-download_model "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn_scaled.safetensors" "$TEXT_ENCODERS_DIR/t5xxl_fp8_e4m3fn_scaled.safetensors"
+download_model "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors" "$TEXT_ENCODERS_DIR/t5xxl_fp16.safetensors"
 download_model "https://huggingface.co/realung/flux1-dev.safetensors/resolve/main/ae.safetensors" "$VAE_DIR/ae.safetensors"
+download_model "https://huggingface.co/black-forest-labs/FLUX.1-Krea-dev/resolve/main/flux1-krea-dev.safetensors" "$DIFFUSION_MODELS_DIR/flux1-krea-dev.safetensors"
+download_model "https://huggingface.co/maxborland/juggernautXL_ragnarokBy.safetensors/resolve/main/juggernautXL_ragnarokBy.safetensors" "$CHECKPOINT_DIR/juggernautXL_ragnarokBy.safetensors"
+download_model "https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors" "$VAE_DIR/sdxl_vae.safetensors"
 
-if [ "$download_pulid" == "true" ]; then
-  download_model "https://huggingface.co/guozinan/PuLID/resolve/main/pulid_flux_v0.9.1.safetensors" "$PULID_DIR/pulid_flux_v0.9.1.safetensors"
-fi
-
-if [ "$download_flux_controlnet" == "true" ]; then
-  download_model "https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro-2.0/resolve/main/diffusion_pytorch_model.safetensors" "$CONTROLNET_DIR/flux_union_controlnet_2.0.safetensors"
-fi
-
-if [ "$download_flux_kontext" == "true" ]; then
-  download_model "https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev/resolve/main/flux1-kontext-dev.safetensors" "$DIFFUSION_MODELS_DIR/flux1-kontext-dev.safetensors"
-  download_model "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors" "$TEXT_ENCODERS_DIR/t5xxl_fp16.safetensors"
-fi
-
-if [ "$download_flux_krea" == "true" ]; then
-  download_model "https://huggingface.co/black-forest-labs/FLUX.1-Krea-dev/resolve/main/flux1-krea-dev.safetensors" "$DIFFUSION_MODELS_DIR/flux1-krea-dev.safetensors"
-fi
 
 # Download additional models
 echo "📥 Starting additional model downloads..."
@@ -167,40 +154,6 @@ if [ ! -f "$NETWORK_VOLUME/ComfyUI/models/upscale_models/4xLSDIR.pth" ]; then
 else
     echo "4xLSDIR.pth already exists. Skipping."
 fi
-
-echo "Finished downloading models!"
-
-declare -A MODEL_CATEGORIES=(
-    ["$NETWORK_VOLUME/ComfyUI/models/loras"]="$LORAS_IDS_TO_DOWNLOAD"
-    ["$NETWORK_VOLUME/ComfyUI/models/diffusion_models"]="$FLUX_MODEL_IDS_TO_DOWNLOAD"
-)
-
-# Counter to track background jobs
-download_count=0
-
-# Ensure directories exist and schedule downloads in background
-for TARGET_DIR in "${!MODEL_CATEGORIES[@]}"; do
-    mkdir -p "$TARGET_DIR"
-    IFS=',' read -ra MODEL_IDS <<< "${MODEL_CATEGORIES[$TARGET_DIR]}"
-
-    for MODEL_ID in "${MODEL_IDS[@]}"; do
-        sleep 6
-        echo "🚀 Scheduling download: $MODEL_ID to $TARGET_DIR"
-        (cd "$TARGET_DIR" && download_with_aria.py -m "$MODEL_ID") &
-        ((download_count++))
-    done
-done
-
-echo "📋 Scheduled $download_count downloads in background"
-
-# Wait for all downloads to complete
-echo "⏳ Waiting for downloads to complete..."
-while pgrep -x "aria2c" > /dev/null; do
-    echo "🔽 Downloads still in progress..."
-    sleep 5  # Check every 5 seconds
-done
-
-echo "✅ All models downloaded successfully!"
 
 echo "Checking and copying workflow..."
 mkdir -p "$WORKFLOW_DIR"
@@ -290,7 +243,9 @@ mv *.onnx "$INSIGHTFACE_DIR/antelopev2"
 
 URL="http://127.0.0.1:8188"
 echo "Starting ComfyUI"
-nohup python3 "$NETWORK_VOLUME/ComfyUI/main.py" --listen > "$NETWORK_VOLUME/comfyui_${RUNPOD_POD_ID}_nohup.log" 2>&1 &
+# Start ComfyUI with both GPUs visible
+echo "Starting ComfyUI with dual GPU support on port 8188..."
+CUDA_VISIBLE_DEVICES=0,1 nohup python3 "$NETWORK_VOLUME/ComfyUI/main.py" --listen --port 8188 --highvram > "$NETWORK_VOLUME/comfyui_${RUNPOD_POD_ID}_nohup.log" 2>&1 &
 until curl --silent --fail "$URL" --output /dev/null; do
   echo "🔄  ComfyUI Starting Up... You can view the startup logs here: $NETWORK_VOLUME/comfyui_${RUNPOD_POD_ID}_nohup.log"
   sleep 2
@@ -302,5 +257,9 @@ face_yolov8m-seg_60.pt
 person_yolov8m-seg.pt
 EOF
 echo "🚀 ComfyUI is ready"
+
+echo "Verifying GPU access..."
+python3 -c "import torch; print(f'GPUs available: {torch.cuda.device_count()}'); print(f'GPU 0: {torch.cuda.get_device_name(0)}'); print(f'GPU 1: {torch.cuda.get_device_name(1)}')" || echo "GPU verification failed"
+
 sleep infinity
 
